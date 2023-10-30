@@ -39,12 +39,13 @@ public class ShortStory {
 		greathall = new Place(ThingNames.Greathall, Places.GreatHall);
 		kingarthur = new Character(ThingNames.KingArthur);
 		kingcrown = new Item(ThingNames.crown, Items.crown);
-		
-		
-		
-		
-		
 	}
+		
+		private ActionSequence getInitSequence() {
+			var sequence = new ActionSequence();
+			//continue with sequences
+		}
+		
 		
 	} 
 }
