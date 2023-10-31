@@ -1,4 +1,15 @@
 import java.util.HashMap;
+import com.storygraph.INode;
+import com.storygraph.ActionMap;
+import com.actions.ActionSequence;
+import com.entities.*;
+import com.entities.Character;
+import com.playerInput.ActionChoice;
+import com.actions.*;
+import com.playerInput.*;
+import com.storygraph.*;
+
+
 
 public class ShortStory implements IStory{
 	
@@ -6,7 +17,7 @@ public class ShortStory implements IStory{
 		return new Node("root");
 	}
 	
-	public enum NodeLabels{ AtForest, ForestBanditDialouge, AtCrossroads, AtStonepath, AtRuins, WitchDialouge, AtCity, AtCottage, WitchTalk, , AtDungeon, PracticeDarkMagic, EscapeFireDungeon, 
+	public enum NodeLabels{ AtForest, ForestBanditDialouge, AtCrossroads, AtStonepath, AtRuins, WitchDialouge, AtCity, AtCottage, WitchTalk, AtDungeon, PracticeDarkMagic, EscapeFireDungeon, 
 		MagicfightWitch, Winfight, Loosefight, DrinkHealingPotion, LockPickEscapeDungeon,  TakeScroll, BanditDialouge, TakeSword,  AtCastle, AtLibrary, GiveLovepotionToWitch,
 		AtAlchemyshop, AlchemistDialouge, PoisonKing, PoisonWitch, KingDialouge, AcceptEvilCrown, AcceptGoodCrown }
 	public enum ChoiceLabels{TalkToForestBandit, DrinkPotion, ReadBook, TakeSword, StealPoison, PayForPoison, TalkToWitch, TalkToBandit, TalkToKing, AcceptBanditQuest, DeclineBanditQuest, AcceptWitchQuest, DeclineWitchQuest, MagicFight, FistFight, SwordFight }
