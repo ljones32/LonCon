@@ -15,8 +15,8 @@ public class ShortStory implements IStory{
 		return new Node("root");
 	}
 	
-	public enum NodeLabels{ AtForest, FistFight, SwordFight, AgreetoFight, RejectFight, ForestBanditDialouge, DrinkPotion, ReadBook, AtSpookyroad, AtStonepath, At1stRuins, WitchDialouge, AtCity, AtCottage, WitchTalk, AcceptDarkQuest, RejectDarkQuest, AtDungeon, PracticeDarkMagic, EscapeFireDungeon, 
-		MagicfightWitch, TakeSpellBook, Winfight, Loosefight, DrinkHealingPotion, LockPickEscapeDungeon,  TakeScroll, BanditDialouge, TakeSword,  AtCastle, AtLibrary, GiveLovepotionToWitch,
+	public enum NodeLabels{ AtForest, FistFight, SwordFight, AgreetoFight, RejectFight, ForestBanditDialouge, DrinkPotion, ReadBook, AtSpookyroad, AtStonepath, At1stRuins, WitchDialouge, AtCity, AtCottage, WitchTalk, AcceptDarkQuest, RejectDarkQuest, GoToRuinsForRevenge, PracticeDarkMagic, EscapeDungeon, 
+		MagicfightWitch, TakeSpellBook, Winfight, Loosefight, FinalFightLilith, DrinkHealingPotion, LockPickEscapeDungeon,  TakeScroll, BanditDialouge, TakeSword,  AtCastle, AtLibrary, GiveLovepotionToWitch,
 		AtAlchemyshop, AlchemistDialouge, PoisonKing, PoisonWitch, KingDialouge, AcceptEvilCrown, AcceptGoodCrown}
 	public enum ChoiceLabels{ Leave, TalkToForestBandit, DrinkPotion, ReadBook, TakeSword, StealPoison, PayForPoison, TalkToWitch, TalkToBandit, TalkToKing, AcceptBanditQuest, DeclineBanditQuest, AcceptWitchQuest, DeclineWitchQuest, MagicFight} 
 	public enum Cnames{ Player, Odin, Lilith, Kingarthur}
@@ -110,11 +110,12 @@ public class ShortStory implements IStory{
 		map.add(NodeLabels.WitchTalk.toString(), getWitchTalk());
 		map.add(NodeLabels.AcceptDarkQuest.toString(), getAcceptDarkQuest());
 		map.add(NodeLabels.RejectDarkQuest.toString(), getRejectDarkQuest());
-		map.add(NodeLabels.AtDungeon.toString(), getAtDungeon());
-		map.add(NodeLabels.EscapeFireDungeon.toString(), getEscapeFireDungeon());
+		map.add(NodeLabels.GoToRuinsForRevenge.toString(), getGoToRuinsForRevenge());
+		map.add(NodeLabels.EscapeDungeon.toString(), getEscapeDungeon());
 		map.add(NodeLabels.MagicfightWitch.toString(), getMagicfightWitch());
 		map.add(NodeLabels.Winfight.toString(), getWinfight());
 		map.add(NodeLabels.Loosefight.toString(), getLoosefight());
+		map.add(NodeLabels.FinalFightLilith.toString(), getFinalFightLilith());
 		map.add(NodeLabels.DrinkHealingPotion.toString(), getDrinkHealingPotion());
 		map.add(NodeLabels.LockPickEscapeDungeon.toString(), getLockPickEscapeDungeon());
 		map.add(NodeLabels.TakeScroll.toString(), getTakeScroll());
@@ -252,7 +253,7 @@ public class ShortStory implements IStory{
 		var hallway = plist.get(Pnames.Hallway);
 		var sequence = new ActionSequence();
 		sequence.add(new HideDialog());
-		sequence.add(new SetNarration("Splendid, you also will have access to special powers like teleportation and other magicks"));
+		sequence.add(new SetNarration("Splendid, Go to the library and bring me the spell book. You also will have access to special powers like teleportation and other magicks"));
 		sequence.add(new ShowNarration());
 		sequence.add(new Position(vlad, hallway));
 		return sequence;
@@ -262,10 +263,43 @@ public class ShortStory implements IStory{
 		var vlad = clist.get(Cnames.Player);
 		var dungeon = plist.get(Pnames.Dungeon);
 		var sequence = new ActionSequence();
-		sequence.add(new Position(vlad, dungeon));	
-		sequence.add(new SetNarration("You have been banished by Lilith!"));h
+		sequence.add(new Position(vlad, dungeon, "CellDoor", "Inside"));	
+		sequence.add(new SetNarration("You have been banished by Lilith!"));
 		sequence.add(new ShowNarration());
 		}
+	private ActionSequence getEscapeDungeon() {
+		var vlad = clist.get(Cnames.Player);
+		var dungeon = plist.get(Pnames.Dungeon);
+		var sequence = new ActionSequence();
+		sequence.add(new EnableEffect(vlad, Blackflame));
+		sequence.add(new SetNarration("Your powers are growing! Go to the ruins, defeat the witch and become the new king!"));
+		return sequence;
+	}
+	private ActionSequence getGoToRuinsForRevenge() {
+		var vlad = clist.get(Cnames.Player);
+		var ruins = plist.get(Pnames.Ruins);
+		var lilith = clist.get(Cnames.Lilith);
+		var sequence = new ActionSequence();
+		sequence.add(new HideNarration());
+		sequence.add(new Face(lilith, ruins.Altar));
+		sequence.add(new DisableEffect(vlad, Blackflame));
+		sequence.add(new Position(vlad, ruins));	
+		sequence.add(new Posiiton(lilith, ruins.Altar));
+		return sequence;
+	}
+	private ActionSequence getFinalFightLilith() {
+		var vlad = clist.get(Cnames.Player);
+		var ruins = plist.get(Pnames.Ruins);
+		var lilith = clist.get(Cnames.Lilith);
+		var sword = ilist.get(Inames.Sword);
+		var sequence = new ActionSequence();
+		sequence.add(new Posiiton(sword, ruins, "Chest"));
+		sequence.add(new Take(vlad, sword, ruins.Chest));
+		sequence.add(new EnableIcon("SwordAttack", sword, lilith, "Attack Lilith!", true));
+		sequence.add(new Die(lilith));
+		return sequence;
+		
+	}
 	private ActionSequence getAtLibrary() {
 		var vlad = clist.get(Cnames.Player);
 		var library = plist.get(Pnames.Library);
@@ -280,8 +314,11 @@ public class ShortStory implements IStory{
 	private ActionSequence getTakeSpellBook() {
 		var spellbook = ilist.get(Inames.SpellBook);
 		var vlad = clist.get(Cnames.Player);
-		
-		
+		var library = plist.get(Pnames.Library);
+		var sequence = new ActionSequence();
+		sequence.add(new Take(vlad, spellbook));
+		sequence.add(new Pocket(vlad, spellbook));
+		return sequence;
 		
 	}
 	private ActionSequence getAtSpookyroad() {
@@ -348,6 +385,7 @@ public class ShortStory implements IStory{
 		var sword = ilist.get(Inames.Sword);
 		var sequence = new ActionSequence();
 		sequence.add(new Position(sword, ruins, "Chest"));
+		sequence.add(new Take(vlad, sword, ruins.Chest));
 		sequence.add(new Draw(vlad, sword));
 		sequence.add(new Attack(vlad, lilith, true));
 		sequence.add(new Die(lilith));
@@ -358,7 +396,7 @@ public class ShortStory implements IStory{
 		var lilith = clist.get(Cnames.Lilith);
 		var sequence = new ActionSequence();
 		sequence.add(new Attack(vlad, lilith, false));
-		sequence.add(new Draw(lilith, Blackflame));
+		sequence.add(new EnableEffect(lilith, Blackflame));
 		sequence.add(new Attack(lilith, vlad, true));
 		return sequence;
 	}
