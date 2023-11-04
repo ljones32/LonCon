@@ -1,7 +1,8 @@
 package com.actions;
 
 import com.entities.Furniture;
-import com.entities.Character;;
+import com.entities.Character;
+import com.entities.Place;
 
 /**
  * Create an instance of this class whenever you want a character to leave a place and enter another one.
@@ -13,7 +14,7 @@ import com.entities.Character;;
 */
 public class Exit implements IAction{
 	Character character;
-	Furniture furniture;
+	Place place
 	boolean fadeOut;
 	
 	/**
@@ -21,9 +22,9 @@ public class Exit implements IAction{
 	 * @param furniture The door that Character will leave through
 	 * @param fadeOut Set true if you want to screen to fade out after Character leaves through the door
 	 */
-	public Exit(Character character, Furniture furniture, boolean fadeOut) {
+	public Exit(Character character, Place place, boolean fadeOut) {
 		this.character=character;
-		this.furniture=furniture;
+		this.place=place;
 		this.fadeOut=fadeOut;
 	}
 	
