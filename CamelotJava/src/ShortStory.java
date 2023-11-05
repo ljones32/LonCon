@@ -21,12 +21,48 @@ public class ShortStory implements IStory{
 		var cottage = plist.get(Pnames.Cottage);
 		var dungeon = plist.get(Pnames.Dungeon);
 		
+		var BecomeNewWitchKingNode = new Node(NodeLabels.BecomeNewWitchKing.toString());
+		BecomeNewWitchKingNode.addChild(new SelectionChoice(ChoiceLabels.AcceptECrown.toString()));
+			vlad,
+			ActionChoice.Icons.crown,
+			"King Vlad",
+			true);
+			
+		
+		var WinFight2ndTimeNode = new Node(NodeLabels.WinFight2ndTime.toString());
+		WinFight2ndTimeNode.addChild(new SelectionChoice(ChoiceLabels.AcceptECrown.toString()));
+			vlad,
+			ActionChoice.Icons.crown,
+			"Vlad is now the Evil King",
+			true),
+			BecomeNewWitchKingNode);
+		
+		var LoseFightNode = new Node(NodeLabels.Loosefight.toString());
+		LoseFightNode.addChild(new SelectionChoice(ChoiceLabels.DrinkPotion.toString()));
+			vlad,
+			ActionChoice.Icons.healingpotion,
+			"Drink Healing Potion",
+			true),
+			WinFight2ndTimeNode);
+		
+		var WinFightNode = new Node(NodeLabels.Winfight.toString());
+		WinFightNode.addChild(new SelectionChoice(ChoiceLabels.AcceptECrown.toString()));
+			vlad,
+			ActionChoice.Icons.crown,
+			"Vlad is now the Evil King",
+			true),
+			LoseFightNode);
+		
+		var RejectFightNode = new Node(NodeLabels.RejectFight.toString());
+		RejectFightNode.addChild(new SelectionChoice(ChoiceLabels.Reject.toString()));
+		
 		var fistfight = new Node(NodeLabels.FistFight.toString());
 		var swordFight = new Node(NodeLabels.SwordFight.toString());
 			lilith, 
 			ActionChoice.Icons.sword,
 			"Stab lilith",
 			true),
+			RejectFightNode);
 		var AgreetoFightNode = new Node(NodeLabels.AgreetoFight.toString());
 	
 		AgreetoFightNode.addChild(new SelectionChoice(ChoiceLabels.FistFight.toString());
