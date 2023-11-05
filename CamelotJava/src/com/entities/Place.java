@@ -5,7 +5,7 @@ public class Place implements IThing<com.entities.Place.Places>{
 	Places p1;
 	
 	public enum Places {
-	AlchemyShop, Blacksmith, Bridge, Camp, CastleBedroom, CastleCrossroads, City, Cottage, Courtyard, DiningRoom, Dungeon, Farm, ForestPath, GreatHall, Hallway, Library, Port, Ruins, SpookyPath, SpookyCrossroads, Storage, Tavern }
+	AlchemyShop, Altar, Blacksmith, Bridge, Camp, CastleBedroom, CastleCrossroads, Chest, City, Cottage, Courtyard, DiningRoom, Dungeon, Farm, ForestPath, GreatHall, Hallway, Library, Port, Ruins, SpookyPath, SpookyCrossroads, Storage, Tavern }
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
