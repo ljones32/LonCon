@@ -15,7 +15,7 @@ public class ActionChoice implements IPlayerChoice{
 	public boolean isDefault;
 	
 	public enum Icons{
-arrest,draw,drink,exit,forge,kneel,listen,lockpick,research,swords,talk,unlock,usekey,armour,beard,boot,crown,dress,gloves,helm,paintbrush,palette,sewing,brokenheart,charm,firespell,hurt,skull,snowflake,star,bed,cauldron,chair,chest,door,fireplace,lockedchest,lockeddoor,plant,target,throne,well,woodendoor,Items,apple,book,bookshelf,bread,chickenleg,coins,darkmagic,evilbook,flask,flower,healingpotion,ink,key,lovepotion,magnifyingglass,openscroll,padlock,poison,potion,present,ring,scroll,sword,torch,woodpile,Other,cancel,checkmark,dice_five,dice_four,dice_one,dice_six,dice_three,dice_two,fist,hand,hourglass,meal,music,sleep,snake,sunrise,time,tree,anvil,bridge,campfire,castle,city,cottage,dungeon,forest,mug,ship,shopsign,stonepath
+arrest,draw,drink,exit, enter, forge,kneel,listen,lockpick,research,swords,talk,unlock,usekey,armour,beard,boot,crown,dress,gloves,helm,paintbrush,palette,sewing,brokenheart,charm,firespell,hurt,skull,snowflake,star,bed,cauldron,chair,chest,door,fireplace,lockedchest,lockeddoor,plant,target,throne,well,woodendoor,Items,apple,book,bookshelf,bread,chickenleg,coins,darkmagic,evilbook,flask,flower,healingpotion,ink,key,lovepotion,magnifyingglass,openscroll,padlock,poison,potion,present,ring,scroll,sword,torch,woodpile,Other,cancel,checkmark,dice_five,dice_four,dice_one,dice_six,dice_three,dice_two,fist,hand,hourglass,meal,music,sleep,snake,sunrise,time,tree,anvil,bridge,campfire,castle,city,cottage,dungeon,forest,mug,ship,shopsign,stonepath
 	}
 	/**
 	 * Constructor

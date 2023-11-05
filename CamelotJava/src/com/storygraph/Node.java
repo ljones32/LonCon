@@ -32,10 +32,9 @@ public class Node implements INode{
 	
 	/**
 	 * Use this function to connect another node to this node via an edge (player choice)
-	 * @param edge The edge (player choice) that connects this node to the child node
 	 * @param child The node that is connected to this node via edge
 	 */
-	public void addChild(IPlayerChoice edge, INode child) {
+	public void addChild(INode child) {
 		children.put(edge, child);
 	}
 
