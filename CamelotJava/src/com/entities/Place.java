@@ -22,6 +22,10 @@ public class Place implements IThing<com.entities.Place.Places>{
 		this.p1 = p1;
 	}
 	
+	public Furniture getFurniture(String f) {
+		return new Furniture(name+"."+f);
+	}
+	
 	
 
 }

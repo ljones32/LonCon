@@ -22,11 +22,6 @@ public class ShortStory implements IStory{
 		var dungeon = plist.get(Pnames.Dungeon);
 		
 		var BecomeNewWitchKingNode = new Node(NodeLabels.BecomeNewWitchKing.toString());
-		BecomeNewWitchKingNode.addChild(new ActionChoice(ChoiceLabels.AcceptECrown.toString(),
-			vlad,
-			ActionChoice.Icons.crown,
-			"King Vlad",
-			true);
 			
 		
 		var WinFight2ndTimeNode = new Node(NodeLabels.WinFight2ndTime.toString());
@@ -54,7 +49,7 @@ public class ShortStory implements IStory{
 			LoseFightNode);
 		
 		var RejectFightNode = new Node(NodeLabels.RejectFight.toString());
-		RejectFightNode.addChild(new SelectionChoice(ChoiceLabels.Reject.toString()));
+		RejectFightNode.addChild(new SelectionChoice(ChoiceLabels.Reject.toString()), WinFightNode);
 		
 		var fistfight = new Node(NodeLabels.FistFight.toString());
 		var swordFight = new Node(NodeLabels.SwordFight.toString());
@@ -67,15 +62,15 @@ public class ShortStory implements IStory{
 			false),
 			RejectFightNode);
 		
-		AgreetoFightNode.addChild(new SelectionChoice(ChoiceLabels.SwordFight.toString()));
+		AgreetoFightNode.addChild(new SelectionChoice(ChoiceLabels.SwordFight.toString()), RejectFightNode);
 		var WitchDialouge = new Node(NodeLabels.WitchDialouge.toString());
-		WitchDialouge.addChild(new Node(NodeLabels.AgreetoFight.toString()));
+		WitchDialouge.addChild(new Node(NodeLabels.AgreetoFight.toString()), );
 		var atLibraryNode = new Node(NodeLabels.AtLibrary.toString());
 		var WitchTalk = new Node(NodeLabels.WitchTalk.toString());
 		
 		
 		var kingDialouge = new Node(NodeLabels.KingDialouge.toString());
-		kingDialouge.addChild(new Node(NodeLabels.BecomeNewKing.toString()));
+		kingDialouge.addChild(new SelectionChoice(ChoiceLabels.TalktoKing.toString()), new Node(NodeLabels.BecomeNewKing.toString()));
 	
 		var AcceptGoodCrownNode = new Node(NodeLabels.AcceptGoodCrown.toString());
 		AcceptGoodCrownNode.addChild(new ActionChoice(ChoiceLabels.TalktoKing.toString(),
@@ -389,8 +384,8 @@ public class ShortStory implements IStory{
 		var home = plist.get(Pnames.Cottage);
 		var sequence = new ActionSequence();
 		sequence.add(new EnableInput(false));
-		sequence.add(new Exit(vlad, forest, true));	
-		sequence.add(new Enter(vlad, city, true));
+		sequence.add(new Exit(vlad, forest.getFurniture("Exit"), true));	
+		sequence.add(new Enter(vlad, city.getFurniture("city"), true));
 		sequence.add(new EnableInput(true));
 		return sequence;
 	}
@@ -406,8 +401,8 @@ public class ShortStory implements IStory{
 		//var home = plist.get(Pnames.Cottage);
 		var sequence = new ActionSequence();
 		sequence.add(new EnableInput(false));
-		sequence.add(new Exit(vlad, city, true));
-		sequence.add(new Enter(vlad, home, true));
+		sequence.add(new Exit(vlad, city.getFurniture("city"), true));
+		sequence.add(new Enter(vlad, home.getFurniture("home"), true));
 		sequence.add(new Position(lilith, home, "Fireplace"));
 		sequence.add(new Face(lilith, vlad));
 		return sequence;
@@ -457,10 +452,10 @@ public class ShortStory implements IStory{
 		var lilith = clist.get(Cnames.Lilith);
 		var sequence = new ActionSequence();
 		//sequence.add(new HideNarration());
-		sequence.add(new Face(lilith, ruins.Altar));
+		sequence.add(new Face(lilith, ruins.getFurniture("Altar")));
 		//sequence.add(new DisableEffect(vlad, Blackflame));
 		sequence.add(new Position(vlad, ruins));	
-		sequence.add(new Position(lilith, ruins.Altar));
+		sequence.add(new Position(lilith, ruins.getFurniture("Altar")));
 		return sequence;
 	}
 	private ActionSequence getFinalFightLilith() {
@@ -470,8 +465,8 @@ public class ShortStory implements IStory{
 		var sword = ilist.get(Inames.Sword);
 		var sequence = new ActionSequence();
 		sequence.add(new Position(sword, ruins, "Chest"));
-		sequence.add(new Take(vlad, sword, ruins.Chest));
-		sequence.add(new EnableIcon("SwordAttack", sword, lilith, "Attack Lilith!", true));
+		sequence.add(new Take(vlad, sword, ruins.getFurniture("Chest")));
+		//sequence.add(new EnableIcon("SwordAttack", sword, lilith, "Attack Lilith!", true));
 		sequence.add(new Die(lilith));
 		sequence.add(new SetNarration("You have defeated Lilith! Do you want to become King of Good or King of Evil?"));
 		sequence.add(new SetDialog("[Accept Good Crown|I want to become King of Good]"));
@@ -616,7 +611,7 @@ public class ShortStory implements IStory{
 		var sword = ilist.get(Inames.Sword);
 		var sequence = new ActionSequence();
 		sequence.add(new Position(sword, ruins, "Chest"));
-		sequence.add(new Take(vlad, sword, ruins.Chest));
+		sequence.add(new Take(vlad, sword, ruins.getFurniture("Chest")));
 		sequence.add(new Draw(vlad, sword));
 		sequence.add(new Attack(vlad, lilith, true));
 		sequence.add(new Die(lilith));
@@ -646,7 +641,7 @@ public class ShortStory implements IStory{
 		var healingpotion = ilist.get(Inames.RedPotion);
 		var sequence = new ActionSequence();
 		sequence.add(new Position(healingpotion, ruins, "Altar"));
-		sequence.add(new Take(vlad, healingpotion, ruins.Altar));
+		sequence.add(new Take(vlad, healingpotion, ruins.getFurniture("Altar")));
 		sequence.add(new Drink(vlad));
 		return sequence;
 	}

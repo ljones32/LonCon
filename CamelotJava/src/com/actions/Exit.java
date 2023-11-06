@@ -14,7 +14,7 @@ import com.entities.Place;
 */
 public class Exit implements IAction{
 	Character character;
-	Place place
+	Furniture furniture;
 	boolean fadeOut;
 	
 	/**
@@ -22,9 +22,9 @@ public class Exit implements IAction{
 	 * @param furniture The door that Character will leave through
 	 * @param fadeOut Set true if you want to screen to fade out after Character leaves through the door
 	 */
-	public Exit(Character character, Place place, boolean fadeOut) {
+	public Exit(Character character, Furniture furniture, boolean fadeOut) {
 		this.character=character;
-		this.place=place;
+		this.furniture=furniture;
 		this.fadeOut=fadeOut;
 	}
 	
