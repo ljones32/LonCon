@@ -64,7 +64,7 @@ public class ShortStory implements IStory{
 		
 		AgreetoFightNode.addChild(new SelectionChoice(ChoiceLabels.SwordFight.toString()), RejectFightNode);
 		var WitchDialouge = new Node(NodeLabels.WitchDialouge.toString());
-		WitchDialouge.addChild(new Node(NodeLabels.AgreetoFight.toString()), );
+		WitchDialouge.addChild(new SelectionChoice(ChoiceLabels.TalkToWitch.toString()), new Node(NodeLabels.AgreetoFight.toString()));
 		var atLibraryNode = new Node(NodeLabels.AtLibrary.toString());
 		var WitchTalk = new Node(NodeLabels.WitchTalk.toString());
 		
@@ -455,7 +455,7 @@ public class ShortStory implements IStory{
 		sequence.add(new Face(lilith, ruins.getFurniture("Altar")));
 		//sequence.add(new DisableEffect(vlad, Blackflame));
 		sequence.add(new Position(vlad, ruins));	
-		sequence.add(new Position(lilith, ruins.getFurniture("Altar")));
+		sequence.add(new Position(lilith, ruins));
 		return sequence;
 	}
 	private ActionSequence getFinalFightLilith() {
