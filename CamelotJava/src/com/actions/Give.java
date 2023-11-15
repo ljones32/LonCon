@@ -26,6 +26,6 @@ public class Give implements IAction
 	
 	@Override
 	public String toString() {
-		return String.format("%s(%s, %s, %s)", getName(), character1.getName(), character2.getName(), item.getName());
+		return String.format("%s(%s, %s, %s)", character1.getName(), item.getName(), character2.getName());
 	}
 }

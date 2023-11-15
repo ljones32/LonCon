@@ -6,7 +6,7 @@ public class HideDialog implements IAction
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return name;
+		return "HideDialog";
 	}
 
 	@Override
@@ -17,6 +17,11 @@ public class HideDialog implements IAction
 	
 	public HideDialog() {
 		
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s",getName());
 	}
 
 }

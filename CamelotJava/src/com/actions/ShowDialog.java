@@ -14,5 +14,10 @@ public class ShowDialog implements IAction
 		// TODO Auto-generated method stub
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s()",getName());
+	}
 
 }

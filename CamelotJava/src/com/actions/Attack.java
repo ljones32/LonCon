@@ -10,7 +10,7 @@ public class Attack implements IAction{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return name;
+		return "Attack";
 	}
 
 	@Override
@@ -28,5 +28,10 @@ public class Attack implements IAction{
 		this.c1 = c1;
 		this.c2 = c2;
 		this.b1 = b1;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s(%s, %s, %s)",getName(), c1.getName(), c2.getName(), b1);
 	}
 }

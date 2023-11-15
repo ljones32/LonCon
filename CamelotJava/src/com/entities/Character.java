@@ -49,5 +49,9 @@ public class Character implements IEntity, IThing<com.entities.Character.BodyTyp
 	public Clothing getClothing() {
 		return c1;
 	}
+	
+	public Hairstyles getHairStyle() {
+		return h1;
+	}
 }
  

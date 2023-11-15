@@ -6,7 +6,7 @@ public class Die implements IAction{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return name;
+		return "Die";
 	}
 
 	@Override
@@ -16,5 +16,10 @@ public class Die implements IAction{
 	}
 	public Die(Character c1) {
 		this.c1 = c1;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s(%s)",getName(), c1);
 	}
 }

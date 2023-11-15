@@ -197,6 +197,7 @@ public class ShortStory implements IStory{
 		ilist.put(Inames.RedPotion, new Item(Inames.RedPotion.toString(), Item.Items.RedPotion));
 		plist.put(Pnames.Cottage, new Place(Pnames.Cottage.toString(), Place.Places.Cottage));
 		plist.put(Pnames.CastleCrossroads, new Place(Pnames.CastleCrossroads.toString(), Place.Places.CastleCrossroads));
+		plist.put(Pnames.Castlebedroom, new Place(Pnames.Castlebedroom.toString(), Place.Places.CastleBedroom));
 		plist.put(Pnames.Library, new Place(Pnames.Library.toString(), Place.Places.Library));
 		plist.put(Pnames.Hallway, new Place(Pnames.Hallway.toString(), Place.Places.Hallway));
 		plist.put(Pnames.GreatHall, new Place(Pnames.GreatHall.toString(), Place.Places.GreatHall));

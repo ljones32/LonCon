@@ -17,4 +17,9 @@ public class HideNarration implements IAction{
 	public HideNarration() {
 		
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s()",getName());
+	}
 }

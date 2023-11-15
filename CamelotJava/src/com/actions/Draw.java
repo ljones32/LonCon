@@ -9,7 +9,7 @@ public class Draw implements IAction{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return name;
+		return "Draw";
 	}
 
 	@Override
@@ -21,5 +21,10 @@ public class Draw implements IAction{
 	public Draw(Character c1, Item i1) {
 		this.c1 = c1;
 		this.i1 = i1;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s(%s, %s)",getName(), c1.getName(), i1.getName());
 	}
 }

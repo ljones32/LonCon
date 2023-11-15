@@ -2,11 +2,12 @@ package com.actions;
 
 public class SetNarration implements IAction
 {
-	String name;
+	//String name;
+	String text;
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return name;
+		return "SetNarration";
 	}
 
 	@Override
@@ -16,7 +17,11 @@ public class SetNarration implements IAction
 	}
 	
 	public SetNarration(String s1) {
-		System.out.println(s1);
+		text = s1;
+	}
+	
+	public String toString() {
+		return String.format("%s(%s)", getName(), text);
 	}
 
 }
