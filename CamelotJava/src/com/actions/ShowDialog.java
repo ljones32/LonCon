@@ -6,7 +6,7 @@ public class ShowDialog implements IAction
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "ShowDialog";
+		return name;
 	}
 
 	@Override
