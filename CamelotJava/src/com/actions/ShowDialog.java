@@ -1,12 +1,12 @@
 package com.actions;
 
-public class ShowDialog implements IAction
-{
-	String name;
+import com.entities.Furniture;
+
+public class ShowDialog implements IAction{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return name;
+		return "ShowDialog";
 	}
 
 	@Override

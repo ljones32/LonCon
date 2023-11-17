@@ -192,7 +192,7 @@ public class ShortStory implements IStory{
 		clist.put(Cnames.Lilith, new Character(Cnames.Lilith.toString(), Character.BodyType.E, Character.Clothing.Witch));
 		clist.put(Cnames.Kingarthur, new Character(Cnames.Kingarthur.toString(), Character.BodyType.H, Character.Clothing.King));
 		plist.put(Pnames.Forest, new Place(Pnames.Forest.toString(), Place.Places.ForestPath));
-		plist.put(Pnames.Spookyroad, new Place(Pnames.Spookyroad.toString(), Place.Places.SpookyCrossroads));
+		plist.put(Pnames.Spookyroad, new Place(Pnames.Spookyroad.toString(), Place.Places.Spookyroad));
 		plist.put(Pnames.City, new Place(Pnames.City.toString(), Place.Places.City));
 		ilist.put(Inames.RedPotion, new Item(Inames.RedPotion.toString(), Item.Items.RedPotion));
 		plist.put(Pnames.Cottage, new Place(Pnames.Cottage.toString(), Place.Places.Cottage));
@@ -209,7 +209,7 @@ public class ShortStory implements IStory{
 		ilist.put(Inames.SpellBook, new Item(Inames.SpellBook.toString(), Item.Items.SpellBook));
 		ilist.put(Inames.Scroll, new Item(Inames.Scroll.toString(), Item.Items.Scroll));
 		ilist.put(Inames.PurplePotion, new Item(Inames.PurplePotion.toString(), Item.Items.PurplePotion));
-		ilist.put(Inames.Sword, new Item(Inames.Sword.toString(), Item.Items.PurplePotion));
+		ilist.put(Inames.Sword, new Item(Inames.Sword.toString(), Item.Items.Sword));
 		ilist.put(Inames.SpellBook, new Item(Inames.SpellBook.toString(), Item.Items.SpellBook));
 		ilist.put(Inames.JewelKey, new Item(Inames.JewelKey.toString(), Item.Items.JewelKey));
 		ilist.put(Inames.Skull, new Item(Inames.Skull.toString(), Item.Items.Skull));
@@ -336,8 +336,8 @@ public class ShortStory implements IStory{
 		sequence.add(new Face(odin, vlad));
 		sequence.add(new Create<Item>(evilbook));
 		sequence.add(new Create<Item>(lovepotion));
-		sequence.add(new Position(evilbook, forest, "DirtPile"));
-		sequence.add(new Position(lovepotion, forest, "PathBlock"));
+		sequence.add(new Position(evilbook, forest));
+		sequence.add(new Position(lovepotion, forest));
 		sequence.add(new SetCameraFocus(vlad));
 		sequence.add(new ShowMenu(true));
 		sequence.add(new ShowMenu(false));
