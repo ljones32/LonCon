@@ -154,16 +154,17 @@ public class ShortStory implements IStory{
 				"Leave the forest",
 				true),
 				atCityNode);
+		
 		var ForestBanditDialouge = new Node(NodeLabels.ForestBanditDialouge.toString());
-		ForestBanditDialouge.addChild(new SelectionChoice(ChoiceLabels.DrinkPotion.toString()), 
+		ForestBanditDialouge.addChild(new SelectionChoice(ChoiceLabels.Accept.toString()), 
 				DrinkPotion);
-		ForestBanditDialouge.addChild(new SelectionChoice(ChoiceLabels.TakeBook.toString()),
+		ForestBanditDialouge.addChild(new SelectionChoice(ChoiceLabels.Reject.toString()),
 				TakeBook);	
 		var atForestNode = new Node(NodeLabels.AtForest.toString());
 		atForestNode.addChild(new ActionChoice(ChoiceLabels.TalkToBandit.toString(),
 				odin,
 				ActionChoice.Icons.talk,
-				"Talk to odin",
+				" ",
 				true),
 				ForestBanditDialouge);
 		return atForestNode; 
@@ -354,8 +355,8 @@ public class ShortStory implements IStory{
 		sequence.add(new SetNarration("Talk to the Bandit Odin to Begin your Journey"));
 		sequence.add(new ShowNarration());
 		sequence.add(new SetDialog("Do you want to Drink the Love Potion or read the Evil Book"));
-		sequence.add(new SetDialog("Love Potion"));
-		sequence.add(new SetDialog("Evil Book"));
+		sequence.add(new SetDialog("[Accept|Love Potion]"));
+		sequence.add(new SetDialog("[Reject|Evil Book]"));
 		sequence.add(new ShowDialog());
 		return sequence;
 	}
