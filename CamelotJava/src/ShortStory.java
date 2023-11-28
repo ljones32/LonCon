@@ -22,50 +22,31 @@ public class ShortStory implements IStory{
 		var dungeon = plist.get(Pnames.Dungeon);
 		var knight = clist.get(Cnames.Knight);
 		
-		var BecomeNewWitchKingNode = new Node(NodeLabels.BecomeNewWitchKing.toString());
-			
 		
-		var WinFight2ndTimeNode = new Node(NodeLabels.WinFight2ndTime.toString());
-		WinFight2ndTimeNode.addChild(new ActionChoice(ChoiceLabels.AcceptECrown.toString(),
-			vlad,
-			ActionChoice.Icons.crown,
-			"Vlad is now the Evil King",
-			true),
-			BecomeNewWitchKingNode);
 		
-		var LoseFightNode = new Node(NodeLabels.Loosefight.toString());
-		LoseFightNode.addChild(new ActionChoice(ChoiceLabels.DrinkPotion.toString(),
-			vlad,
-			ActionChoice.Icons.healingpotion,
-			"Drink Healing Potion",
-			true),
-			WinFight2ndTimeNode);
+	
 		
 		var WinFightNode = new Node(NodeLabels.Winfight.toString());
-		WinFightNode.addChild(new ActionChoice(ChoiceLabels.AcceptECrown.toString(),
-			vlad,
-			ActionChoice.Icons.crown,
-			"Vlad is now the Evil King",
-			true),
-			LoseFightNode);
 		
-		var RejectFightNode = new Node(NodeLabels.RejectFight.toString());
-		RejectFightNode.addChild(new SelectionChoice(ChoiceLabels.Reject.toString()), WinFightNode);
+		
+		//var RejectFightNode = new Node(NodeLabels.RejectFight.toString());
+		
 		
 		var fistfight = new Node(NodeLabels.FistFight.toString());
-		var swordFight = new Node(NodeLabels.SwordFight.toString());
-		var AgreetoFightNode = new Node(NodeLabels.AgreetoFight.toString());
 	
-		AgreetoFightNode.addChild(new ActionChoice(ChoiceLabels.FistFight.toString(),
-			lilith,
-			ActionChoice.Icons.fist,
-			"Hit lilith",
-			false),
-			RejectFightNode);
+		var swordFight = new Node(NodeLabels.SwordFight.toString());
+		swordFight.addChild(new SelectionChoice(ChoiceLabels.Fight.toString()),
+				WinFightNode);
 		
-		AgreetoFightNode.addChild(new SelectionChoice(ChoiceLabels.SwordFight.toString()), RejectFightNode);
-		var WitchDialouge = new Node(NodeLabels.WitchDialouge.toString());
-		WitchDialouge.addChild(new SelectionChoice(ChoiceLabels.TalkToWitch.toString()), new Node(NodeLabels.AgreetoFight.toString()));
+		var AgreetoFightNode = new Node(NodeLabels.AgreetoFight.toString());
+
+		
+		var WitchDialouge= new Node(NodeLabels.WitchDialouge.toString());
+		WitchDialouge.addChild(new SelectionChoice(ChoiceLabels.SwordFight.toString()),
+			swordFight); 
+		WitchDialouge.addChild(new SelectionChoice(ChoiceLabels.FistFight.toString()),
+			fistfight);
+		
 		var atLibraryNode = new Node(NodeLabels.AtLibrary.toString());
 		var WitchTalk = new Node(NodeLabels.WitchTalk.toString());
 		
@@ -118,7 +99,7 @@ public class ShortStory implements IStory{
 				ActionChoice.Icons.talk,
 				"Talk to Lilith",
 				true),
-				WitchTalk);
+				AgreetoFightNode);
 		var get1stKnightDialog = new Node(NodeLabels.stKnightDialog.toString());
 		get1stKnightDialog.addChild(new ActionChoice(ChoiceLabels.TalktoKnight.toString(),
 				knight,
@@ -141,26 +122,17 @@ public class ShortStory implements IStory{
 				"Talk to Lilith",
 				true),
 				WitchDialouge);
-		var atSpookyroad = new Node(NodeLabels.AtSpookyRoad.toString());
-		atSpookyroad.addChild(new ActionChoice(ChoiceLabels.Leave.toString(),
-				vlad,
-				ActionChoice.Icons.talk,
-				"Talk to Lilith",
-				true), 
-				at1stRuins);
 		var DrinkPotion = new Node(NodeLabels.DrinkPotion.toString());
-		DrinkPotion.addChild(new ActionChoice(ChoiceLabels.Leave.toString(),
+		DrinkPotion.addChild(new PositionChoice(
 				vlad,
-				ActionChoice.Icons.exit,
-				"Leave the forest",
-				true),
-				atSpookyroad);
+				spookyroad.getFurniture("EastEnd"),
+				PositionChoice.Condition.arrived),
+				at1stRuins);
 		var TakeBook = new Node(NodeLabels.TakeBook.toString());
-		TakeBook.addChild(new ActionChoice(ChoiceLabels.Leave.toString(),
+		TakeBook.addChild(new PositionChoice(
 				vlad,
-				ActionChoice.Icons.exit,
-				"Leave the forest",
-				true),
+				city.getFurniture("NorthEnd"),
+				PositionChoice.Condition.arrived),
 				atCityNode);
 		
 		var RuinsBanditDialouge = new Node(NodeLabels.RuinsBanditDialouge.toString());
@@ -180,8 +152,8 @@ public class ShortStory implements IStory{
 	}
 
 	private enum NodeLabels{ AtRuins, BecomeNewKing, RuinsBanditDialouge, AtCrossroads, AtStonepath, WitchDialouge, AtCity, AtCottage, WitchTalk, AtDungeon, PracticeDarkMagic, EscapeFireDungeon, 
-		MagicfightWitch, Winfight, stKnightDialog, Loosefight, DrinkHealingPotion, LockPickEscapeDungeon,  TakeScroll, BanditDialouge, TakeSword,  AtCastle, AtLibrary, GiveLovepotionToWitch,
-		AtAlchemyshop, AlchemistDialouge, PoisonKing, PoisonWitch, KingDialouge, AcceptEvilCrown, AcceptGoodCrown, FinalFightLilith, BecomeEvilKing, WinFight2ndTime, DrinkPotion, ReadBook, AtSpookyRoad, At1stRuins, AgreetoFight, FistFight, SwordFight, RejectFight, TakeSpellBook, AcceptDarkQuest, RejectDarkQuest, GoToRuinsForRevenge, EscapeDungeon, BecomeNewWitchKing, GiveBookToLilith, TakeBook }
+		MagicfightWitch, Winfight, stKnightDialog, DrinkHealingPotion, LockPickEscapeDungeon,  TakeScroll, BanditDialouge, TakeSword,  AtCastle, AtLibrary, GiveLovepotionToWitch,
+		AtAlchemyshop, AlchemistDialouge, PoisonKing, PoisonWitch, KingDialouge, AcceptEvilCrown, AcceptGoodCrown, FinalFightLilith, BecomeEvilKing, DrinkPotion, ReadBook, At1stRuins, AgreetoFight, FistFight, SwordFight, RejectFight, TakeSpellBook, AcceptDarkQuest, RejectDarkQuest, GoToRuinsForRevenge, EscapeDungeon, GiveBookToLilith, TakeBook }
 	public enum ChoiceLabels{Accept, Reject, Leave, AcceptECrown, AcceptGCrown, TalktoKing, Enter, TalktoKnight, TalkToForestBandit, DrinkPotion, TakeBook, TakeSword, StealPoison, PayForPoison, TalkToWitch, Talk2Witch, TalkToBandit, Fight, TalkToKing, AcceptBanditQuest, DeclineBanditQuest, AcceptWitchQuest, DeclineWitchQuest, MagicFight, FistFight, SwordFight }
 	public enum Cnames{ Player, Odin, Lilith, Kingarthur, Knight}
 	public enum Pnames {Forest, Spookyroad, Ruins, CastleCrossroads, Dungeon, Cottage, AlchemyShop, GreatHall, Library, Hallway, Castlebedroom, City, SpookyPath}
@@ -262,7 +234,6 @@ public class ShortStory implements IStory{
 		map.add(NodeLabels.AtRuins.toString(), getAtRuins());
 		map.add(NodeLabels.RuinsBanditDialouge.toString(), getRuinsBanditDialouge());
 		map.add(NodeLabels.DrinkPotion.toString(), getDrinkPotion());
-		map.add(NodeLabels.AtSpookyRoad.toString(), getAtSpookyroad());
 		map.add(NodeLabels.At1stRuins.toString(), getAt1stRuins());
 		map.add(NodeLabels.TakeBook.toString(), getTakeBook());
 		map.add(NodeLabels.WitchDialouge.toString(), getWitchDialouge());
@@ -285,20 +256,17 @@ public class ShortStory implements IStory{
 		map.add(NodeLabels.FinalFightLilith.toString(), getFinalFightLilith());
 		//map.add(NodeLabels.DrinkHealingPotion.toString(), getDrinkHealingPotion());
 		//map.add(NodeLabels.LockPickEscapeDungeon.toString(), getLockPickEscapeDungeon());
-		map.add(NodeLabels.WinFight2ndTime.toString(), getWinFight2ndTime());
 		//map.add(NodeLabels.TakeScroll.toString(), getTakeScroll());
 		//map.add(NodeLabels.TakeSword.toString(), getTakeSword());
 		//map.add(NodeLabels.BanditDialouge.toString(), getBanditDialouge());
 		//map.add(NodeLabels.AtCastle.toString(), getAtCastle());
 		map.add(NodeLabels.AtLibrary.toString(), getAtLibrary());
 		//map.add(NodeLabels.GiveLovepotionToWitch.toString(), getGiveLovepotionToWitch());
-		map.add(NodeLabels.BecomeNewWitchKing.toString(), getBecomeNewWitchKing());
 		//map.add(NodeLabels.AtAlchemyshop.toString(), getAtAlchemyShop());
 		//map.add(NodeLabels.AlchemistDialouge.toString(), getAlchemistDialouge());
 		map.add(NodeLabels.GiveBookToLilith.toString(), getGiveBookToLilith());
 		//map.add(NodeLabels.PoisonKing.toString(), getPoisonKing());
 		//map.add(NodeLabels.PoisonWitch.toString(), getPoisonWitch());
-		map.add(NodeLabels.BecomeEvilKing.toString(), getBecomeEvilKing());
 		map.add(NodeLabels.KingDialouge.toString(), getKingDialouge());
 		//map.add(NodeLabels.AcceptEvilCrown.toString(), getAcceptEvilCrown());
 		map.add(NodeLabels.BecomeNewKing.toString(), getBecomeNewKing());
@@ -358,8 +326,6 @@ public class ShortStory implements IStory{
 		var ruins = plist.get(Pnames.Ruins);
 		sequence.add(new Create<Item>(evilbook));
 		sequence.add(new Create<Item>(lovepotion));
-		sequence.add(new Position(evilbook, ruins, "Altar"));
-		sequence.add(new Position(lovepotion, ruins, "Altar"));
 		sequence.add(new SetLeft(vlad));
 		sequence.add(new SetRight(odin));
 		sequence.add(new SetNarration("Talk to the Bandit Odin to Begin your Journey"));
@@ -381,6 +347,7 @@ public class ShortStory implements IStory{
 		//sequence.add(new Create<Item>(lovepotion));
 		//sequence.add(new Position(lovepotion, forest, "PathBlock"));
 		sequence.add(new HideDialog());
+		sequence.add(new Position(lovepotion, ruins, "Altar"));
 		sequence.add(new Take(vlad, lovepotion));
 		sequence.add(new Drink(vlad, lovepotion, ruins, "Altar"));
 		sequence.add(new Pocket(vlad, lovepotion));
@@ -393,8 +360,9 @@ public class ShortStory implements IStory{
 		var ruins = plist.get(Pnames.Ruins);
 		var sequence = new ActionSequence();
 		var city = plist.get(Pnames.City);
-		sequence.add(new Take(vlad, evilbook));	
 		sequence.add(new HideDialog());
+		sequence.add(new Position(evilbook, ruins, "Altar"));
+		sequence.add(new Take(vlad, evilbook));	
 		return sequence;
 	}
 	private ActionSequence getAtCity(){
@@ -500,8 +468,8 @@ public class ShortStory implements IStory{
 		//sequence.add(new EnableIcon("SwordAttack", sword, lilith, "Attack Lilith!", true));
 		sequence.add(new Die(lilith));
 		sequence.add(new SetNarration("You have defeated Lilith! Do you want to become King of Good or King of Evil?"));
-		sequence.add(new SetDialog("[Accept Good Crown|I want to become King of Good]"));
-		sequence.add(new SetDialog("[Accept Evil Crown|I want to become King of Evil]"));
+		sequence.add(new SetDialog("[AcceptGoodCrown|I want to become King of Good]"));
+		sequence.add(new SetDialog("[AcceptEvilCrown|I want to become King of Evil]"));
 		sequence.add(new ShowDialog());
 		sequence.add(new ShowNarration());
 		return sequence;
@@ -579,24 +547,6 @@ public class ShortStory implements IStory{
 		sequence.add(new SetNarration("And you lived evilily ever after as new King!"));
 		return sequence;
 	}
-	
-	private ActionSequence getAtSpookyroad() {
-		var vlad = clist.get(Cnames.Player);
-		var spookyroad = plist.get(Pnames.SpookyPath);
-		var sequence = new ActionSequence();
-		var forest = plist.get(Pnames.Forest);
-		var ruins = plist.get(Pnames.Ruins);
-		var lilith = clist.get(Cnames.Lilith);
-		sequence.add(new Create<Character>(lilith));
-		sequence.add(new SetClothing(lilith));
-		sequence.add(new SetHairStyle(lilith));
-		//sequence.add(new EnableInput(false));
-		sequence.add(new Exit(vlad, forest.getFurniture("EastEnd"), true));
-		//sequence.add(new Position(lilith, spookyroad, "Well"));
-		sequence.add(new Enter(vlad, spookyroad.getFurniture("WestEnd"), true));
-		sequence.add(new EnableInput(true));
-		return sequence; 
-	}
 	private ActionSequence getAt1stRuins() {
 		var vlad = clist.get(Cnames.Player);
 		var lilith = clist.get(Cnames.Lilith);
@@ -607,6 +557,9 @@ public class ShortStory implements IStory{
 		var spookyroad = plist.get(Pnames.SpookyPath);
 		var scroll = ilist.get(Inames.Scroll);
 		var sequence = new ActionSequence();
+		sequence.add(new Create<Character>(lilith));
+		sequence.add(new SetClothing(lilith));
+		sequence.add(new SetHairStyle(lilith));
 		sequence.add(new EnableInput(false));
 		sequence.add(new Exit(vlad, spookyroad.getFurniture("EastEnd"), true));
 		sequence.add(new Enter(vlad, ruins.getFurniture("Exit"), true));
@@ -623,10 +576,9 @@ public class ShortStory implements IStory{
 		sequence.add(new SetRight(lilith));
 		sequence.add(new SetDialog("How dare you enter my realm? I Challenge you to a fight! "));
 		sequence.add(new SetDialog("Will you fight with fists or draw a sword?"));
-		sequence.add(new SetDialog("[Sword Fight|I choose the sword!]"));
-		sequence.add(new SetDialog("[Fist Fight|I'll take you with my hands!]"));
+		sequence.add(new SetDialog("[SwordFight|I choose the sword!]"));
+		sequence.add(new SetDialog("[FistFight|I'll take you with my hands!]"));
 		sequence.add(new ShowDialog());
-		
 		return sequence;
 	}
 	private ActionSequence getAgreetoFight() {
@@ -648,53 +600,31 @@ public class ShortStory implements IStory{
 		var sword = ilist.get(Inames.Sword);
 		var sequence = new ActionSequence();
 		sequence.add(new Position(sword, ruins, "Chest"));
+		sequence.add(new HideDialog());
 		sequence.add(new Take(vlad, sword, ruins.getFurniture("Chest")));
 		sequence.add(new Draw(vlad, sword));
 		sequence.add(new Attack(vlad, lilith, true));
 		sequence.add(new Die(lilith));
+		sequence.add(new Position(vlad, ruins, "Throne"));
 		return sequence;
 	}
 	private ActionSequence getFistFight() {
 		var vlad = clist.get(Cnames.Player);
 		var lilith = clist.get(Cnames.Lilith);
-		var sequence = new ActionSequence();
-		sequence.add(new Attack(vlad, lilith, false));
-		sequence.add(new Cast(lilith, vlad, "red"));
-		sequence.add(new Attack(lilith, vlad, true));
-		return sequence;
-	}
-	private ActionSequence getWinFight() {
-		var vlad = clist.get(Cnames.Player);
-		var ruins = plist.get(Pnames.Ruins);
-		var sequence = new ActionSequence();
-		sequence.add(new SetNarration("You have defeated lilith! You are the new Evil King! The End."));
-		sequence.add(new ShowNarration());
-		sequence.add(new Position(vlad, ruins, "Throne"));
-		return sequence;
-	}
-	private ActionSequence getLooseFight() {
-		var vlad = clist.get(Cnames.Player);
 		var ruins = plist.get(Pnames.Ruins);
 		var healingpotion = ilist.get(Inames.RedPotion);
 		var sequence = new ActionSequence();
+		sequence.add(new HideDialog());
+		sequence.add(new Attack(vlad, lilith, false));
+		sequence.add(new Cast(lilith, vlad, "red"));
+		sequence.add(new Attack(lilith, vlad, true));
+		sequence.add(new Create<Item>(healingpotion));
 		sequence.add(new Position(healingpotion, ruins, "Altar"));
 		sequence.add(new Take(vlad, healingpotion, ruins.getFurniture("Altar")));
 		sequence.add(new Drink(vlad));
-		return sequence;
-	}
-	private ActionSequence getWinFight2ndTime() {
-		var vlad = clist.get(Cnames.Player);
-		var lilith = clist.get(Cnames.Lilith);
-		var sequence = new ActionSequence();
 		sequence.add(new Cast(vlad, lilith, "red"));
 		sequence.add(new Attack(vlad, lilith, true));
 		sequence.add(new Die(lilith));
-		return sequence;
-	}
-	private ActionSequence getBecomeNewWitchKing() {
-		var vlad = clist.get(Cnames.Player);
-		var ruins = plist.get(Pnames.Ruins);
-		var sequence = new ActionSequence();
 		sequence.add(new SetNarration("You have defeated lilith! You are the new Evil King! The End:)"));
 		sequence.add(new ShowNarration());
 		sequence.add(new Position(vlad, ruins, "Throne"));
