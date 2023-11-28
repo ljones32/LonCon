@@ -3,6 +3,7 @@ package com.entities;
 public class Place implements IThing<com.entities.Place.Places>{
 	private String name;
 	Places p1;
+	public IEntity chest;
 	
 	public enum Places {
 	AlchemyShop, Altar, Blacksmith, Bridge, Camp, CastleBedroom, CastleCrossroads, Chest, City, Cottage, Courtyard, DiningRoom, Dungeon, Farm, ForestPath, GreatHall, Hallway, Library, Port, Ruins, SpookyPath, Storage, Tavern, Spookyroad }

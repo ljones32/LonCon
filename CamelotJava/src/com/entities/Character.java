@@ -20,7 +20,7 @@ public class Character implements IEntity, IThing<com.entities.Character.BodyTyp
 	}
 	
 	public enum Clothing 
-		{Bandit, Beggar, LightArmour, HeavyArmour, King, Merchant, Noble, Peasant, Priest, Witch}
+		{Bandit, Beggar, LightArmour, HeavyArmour, King, Merchant, Noble, Peasant, Priest, Witch, Knight}
 	public enum Hairstyles 
 		{Long, Spiky, Short}
 	
