@@ -363,6 +363,8 @@ public class ShortStory implements IStory{
 		sequence.add(new HideDialog());
 		sequence.add(new Position(evilbook, ruins, "Altar"));
 		sequence.add(new Take(vlad, evilbook));	
+		sequence.add(new Pocket(vlad, evilbook));
+		sequence.add(new Position(vlad, city));
 		return sequence;
 	}
 	private ActionSequence getAtCity(){
