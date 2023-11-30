@@ -20,6 +20,6 @@ public class Die implements IAction{
 	
 	@Override
 	public String toString() {
-		return String.format("%s(%s)",getName(), c1);
+		return String.format("%s(%s)",getName(), c1.getName());
 	}
 }
