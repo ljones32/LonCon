@@ -64,8 +64,8 @@ public class ShortStory implements IStory{
 		var kingDialouge = new Node(NodeLabels.KingDialouge.toString());
 		//kingDialouge.addChild(new SelectionChoice(ChoiceLabels.TalktoKing.toString()), new Node(NodeLabels.BecomeNewKing.toString()));
 	
-		var AcceptGoodCrownNode = new Node(NodeLabels.AcceptGoodCrown.toString());
-		AcceptGoodCrownNode.addChild(new SelectionChoice(ChoiceLabels.TalktoKing.toString()),
+		var AcceptGoodCrownNode1 = new Node(NodeLabels.AcceptGoodCrown.toString());
+		AcceptGoodCrownNode1.addChild(new SelectionChoice(ChoiceLabels.AcceptGCrown.toString()),
 				kingDialouge);
 		var AcceptEvilCrownNode1 = new Node(NodeLabels.BecomeEvilKing.toString());
 		
@@ -73,7 +73,7 @@ public class ShortStory implements IStory{
 		FinalFightlilithNode.addChild(new SelectionChoice(ChoiceLabels.AcceptECrown.toString()),
 				AcceptEvilCrownNode1);
 		FinalFightlilithNode.addChild(new SelectionChoice(ChoiceLabels.AcceptGCrown.toString()),
-				AcceptGoodCrownNode);
+				AcceptGoodCrownNode1);
 		
 		var RevengeNode = new Node(NodeLabels.GoToRuinsForRevenge.toString());
 		RevengeNode.addChild(new ActionChoice(ChoiceLabels.Fight.toString(),
@@ -493,7 +493,6 @@ public class ShortStory implements IStory{
 		sequence.add(new ShowNarration());
 		sequence.add(new SetRight(vlad));
 		sequence.add(new SetLeft(odin));
-		sequence.add(new Die(lilith));
 		sequence.add(new SetDialog("[AcceptGCrown|I want to become King of Good]"));
 		sequence.add(new SetDialog("[AcceptECrown|I want to become King of Evil]"));
 		sequence.add(new ShowDialog());
