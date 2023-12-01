@@ -62,13 +62,10 @@ public class ShortStory implements IStory{
 		
 		
 		var kingDialouge = new Node(NodeLabels.KingDialouge.toString());
-		kingDialouge.addChild(new SelectionChoice(ChoiceLabels.TalktoKing.toString()), new Node(NodeLabels.BecomeNewKing.toString()));
+		//kingDialouge.addChild(new SelectionChoice(ChoiceLabels.TalktoKing.toString()), new Node(NodeLabels.BecomeNewKing.toString()));
 	
 		var AcceptGoodCrownNode = new Node(NodeLabels.AcceptGoodCrown.toString());
-		AcceptGoodCrownNode.addChild(new ActionChoice(ChoiceLabels.TalktoKing.toString(),
-				vlad, ActionChoice.Icons.talk,
-				"Talk to King Arthur",
-				true),
+		AcceptGoodCrownNode.addChild(new SelectionChoice(ChoiceLabels.TalktoKing.toString()),
 				kingDialouge);
 		var AcceptEvilCrownNode1 = new Node(NodeLabels.BecomeEvilKing.toString());
 		
@@ -474,7 +471,7 @@ public class ShortStory implements IStory{
 		sequence.add(new Face(lilith, ruins.getFurniture("Altar")));
 		//sequence.add(new DisableEffect(vlad, Blackflame));
 		sequence.add(new Exit(vlad, dungeon.getFurniture("Door"), true));
-		sequence.add(new Enter(vlad, ruins.getFurniture("EastEnd"), true));
+		sequence.add(new Enter(vlad, ruins.getFurniture("Exit"), true));
 		sequence.add(new Position(vlad, ruins));	
 		sequence.add(new Position(lilith, ruins));
 		return sequence;
@@ -493,13 +490,13 @@ public class ShortStory implements IStory{
 		sequence.add(new Attack(vlad, lilith, true));
 		//sequence.add(new EnableIcon("SwordAttack", sword, lilith, "Attack Lilith!", true));
 		sequence.add(new SetNarration("You have defeated Lilith! Do you want to become King of Good or King of Evil?"));
-		sequence.add(new Die(lilith));
+		sequence.add(new ShowNarration());
 		sequence.add(new SetRight(vlad));
 		sequence.add(new SetLeft(odin));
-		sequence.add(new SetDialog("[AcceptGoodCrown|I want to become King of Good]"));
-		sequence.add(new SetDialog("[AcceptEvilCrown|I want to become King of Evil]"));
+		sequence.add(new Die(lilith));
+		sequence.add(new SetDialog("[AcceptGCrown|I want to become King of Good]"));
+		sequence.add(new SetDialog("[AcceptECrown|I want to become King of Evil]"));
 		sequence.add(new ShowDialog());
-		sequence.add(new ShowNarration());
 		return sequence;
 	}
 	private ActionSequence getAcceptGoodCrown() {
