@@ -424,7 +424,7 @@ public class ShortStory implements IStory{
 		var sequence = new ActionSequence();
 		sequence.add(new SetLeft(vlad));
 		sequence.add(new SetRight(lilith));
-		sequence.add(new SetDialog("I see you have found my book, you are the chosen one. Complete it's tasks you can join the dark side and become Evil King"));
+		sequence.add(new SetDialog("I see you have found my book, Go to the library and retrieve my spell book"));
 		sequence.add(new SetDialog("[Accept|I will Accept]"));
 		sequence.add(new SetDialog("[Reject|No! I won't do it.]"));
 		sequence.add(new ShowDialog());
@@ -588,10 +588,8 @@ public class ShortStory implements IStory{
 		var vlad = clist.get(Cnames.Player);
 		var sequence = new ActionSequence();
 		sequence.add(new HideDialog());
-		sequence.add(new Cast(lilith, vlad, "red"));
-		sequence.add(new Die(vlad));
-		sequence.add(new Die(vlad));
-		sequence.add(new Die(vlad));
+		sequence.add(new Cast(vlad, lilith, "red"));
+		sequence.add(new Die(lilith));
 		//sequence.add(new SetNarration("And you lived evilily ever after as new King!"));
 		return sequence;
 	}
@@ -653,17 +651,24 @@ public class ShortStory implements IStory{
 		sequence.add(new Take(vlad, sword, ruins.getFurniture("Chest")));
 		sequence.add(new Draw(vlad, sword));
 		sequence.add(new Attack(lilith, vlad, true));
+		sequence.add(new Attack(vlad, lilith, false));
+		sequence.add(new Attack(lilith, vlad, true));
+		sequence.add(new Attack(lilith, vlad, true));
 		sequence.add(new Attack(vlad, lilith, true));
 		sequence.add(new Position(vlad, ruins, "Throne"));
 		sequence.add(new Position(odin, ruins, "Altar"));
-		sequence.add(new Die(lilith));
 		sequence.add(new SetRight(vlad));
 		sequence.add(new SetLeft(odin));
+		sequence.add(new Die(lilith));
 		sequence.add(new SetDialog("You have defeated The Witch Lilith! You are now the king!"));
 		sequence.add(new ShowDialog());
 		sequence.add(new Revive(lilith));
 		sequence.add(new HideDialog());
 		sequence.add(new Die(vlad));
+		sequence.add(new SetRight(lilith));
+		sequence.add(new SetLeft(vlad));
+		sequence.add(new SetDialog("You couldnt defeat me!"));
+		sequence.add(new ShowDialog());
 		return sequence;
 	}
 	private ActionSequence getWinFight() {
@@ -680,6 +685,10 @@ public class ShortStory implements IStory{
 		sequence.add(new Revive(lilith));
 		sequence.add(new Attack(lilith, vlad, true));
 		sequence.add(new Die(vlad));
+		sequence.add(new SetRight(lilith));
+		sequence.add(new SetLeft(vlad));
+		sequence.add(new SetDialog("You couldnt defeat me!"));
+		sequence.add(new ShowDialog());
 		return sequence;
 	}
 	private ActionSequence getFistFight() {
@@ -703,7 +712,7 @@ public class ShortStory implements IStory{
 		sequence.add(new Drink(vlad));
 		//sequence.add(new Bash(lilith, vlad));
 		sequence.add(new Cast(vlad, lilith, "red"));
-		sequence.add(new Attack(vlad, lilith, true));
+		//sequence.add(new Attack(vlad, lilith, true));
 		sequence.add(new Die(lilith));
 		sequence.add(new SetLeft(odin));
 		sequence.add(new SetRight(vlad));
@@ -711,12 +720,15 @@ public class ShortStory implements IStory{
 		sequence.add(new ShowDialog());
 		//sequence.add(new Position(odin, ruins, "Altar"));
 		//sequence.add(new Position(vlad, ruins, "Throne"));
-		sequence.add(new HideDialog());
 		sequence.add(new Revive(lilith));
+		sequence.add(new HideDialog());
 		sequence.add(new Face(lilith, vlad));
 		sequence.add(new Face(vlad, lilith));	
 		sequence.add(new Die(vlad));
-		
+		sequence.add(new SetRight(lilith));
+		sequence.add(new SetLeft(vlad));
+		sequence.add(new SetDialog("You couldnt defeat me!"));
+		sequence.add(new ShowDialog());
 		return sequence;
 	}
 	
