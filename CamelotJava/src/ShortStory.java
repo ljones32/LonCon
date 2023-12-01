@@ -590,6 +590,8 @@ public class ShortStory implements IStory{
 		sequence.add(new HideDialog());
 		sequence.add(new Cast(lilith, vlad, "red"));
 		sequence.add(new Die(vlad));
+		sequence.add(new Die(vlad));
+		sequence.add(new Die(vlad));
 		//sequence.add(new SetNarration("And you lived evilily ever after as new King!"));
 		return sequence;
 	}
@@ -692,10 +694,14 @@ public class ShortStory implements IStory{
 		sequence.add(new Cast(lilith, vlad, "red"));	
 		sequence.add(new Attack(lilith, vlad, true));
 		sequence.add(new Attack(vlad, lilith, true));
+		sequence.add(new Attack(lilith, vlad, true));
+		sequence.add(new Attack(lilith, vlad, true));
+		sequence.add(new Attack(lilith, vlad, true));
 		sequence.add(new Create<Item>(healingpotion));
 		sequence.add(new Position(healingpotion, ruins, "Altar"));
 		sequence.add(new Take(vlad, healingpotion, ruins.getFurniture("Altar")));
 		sequence.add(new Drink(vlad));
+		//sequence.add(new Bash(lilith, vlad));
 		sequence.add(new Cast(vlad, lilith, "red"));
 		sequence.add(new Attack(vlad, lilith, true));
 		sequence.add(new Die(lilith));
@@ -703,11 +709,12 @@ public class ShortStory implements IStory{
 		sequence.add(new SetRight(vlad));
 		sequence.add(new SetDialog("You have defeated lilith! You are the new Evil King! The End:)"));
 		sequence.add(new ShowDialog());
-		sequence.add(new Position(odin, ruins, "Altar"));
-		sequence.add(new Position(vlad, ruins, "Throne"));
+		//sequence.add(new Position(odin, ruins, "Altar"));
+		//sequence.add(new Position(vlad, ruins, "Throne"));
 		sequence.add(new HideDialog());
 		sequence.add(new Revive(lilith));
 		sequence.add(new Face(lilith, vlad));
+		sequence.add(new Face(vlad, lilith));	
 		sequence.add(new Die(vlad));
 		
 		return sequence;
