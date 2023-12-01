@@ -1,6 +1,5 @@
 import java.util.HashMap;
-import com.storygraph.INode;
-import com.storygraph.ActionMap;
+
 import com.actions.ActionSequence;
 import com.entities.*;
 import com.entities.Character;
@@ -29,19 +28,15 @@ public class ShortStory implements IStory{
 		var knight = clist.get(Cnames.Knight);
 		var Become = new Node(NodeLabels.BecomeEvilKing.toString());
 		var give = new Node(NodeLabels.GiveBookToLilith.toString());
-		give.addChild(new ActionChoice(ChoiceLabels.Talk2Witch.toString(),
-				vlad,
-				ActionChoice.Icons.talk,
-				"Talk to Lilith",
-				true),
+		give.addChild(new SelectionChoice(ChoiceLabels.Talk2Witch.toString()),
 				Become);
 		
 		var WinFightNode = new Node(NodeLabels.Winfight.toString());
 		var takeSpellBook = new Node(NodeLabels.TakeSpellBook.toString());
 		takeSpellBook.addChild(new ActionChoice(ChoiceLabels.TakeBook.toString(),
 				vlad,
-				ActionChoice.Icons.book,
-				"Take Book",
+				ActionChoice.Icons.talk,
+				"Talk to lilith",
 				true),
 				give);
 		//var RejectFightNode = new Node(NodeLabels.RejectFight.toString());
@@ -98,10 +93,10 @@ public class ShortStory implements IStory{
 				true),
 				takeSpellBook);
 		var RejectDarkQuestNode = new Node(NodeLabels.RejectDarkQuest.toString());
-		RejectDarkQuestNode.addChild(new ActionChoice(ChoiceLabels.Leave.toString(),
+		RejectDarkQuestNode.addChild(new ActionChoice(ChoiceLabels.Enter.toString(),
 				dungeon.getFurniture("Door"),
-				ActionChoice.Icons.exit,
-				"Leave the dungeon",
+				ActionChoice.Icons.door,
+				"Leave The Dungeon",
 				true),
 				RevengeNode);
 		WitchTalk.addChild(new SelectionChoice(ChoiceLabels.Accept.toString()), 
@@ -471,12 +466,15 @@ public class ShortStory implements IStory{
 	//}
 	private ActionSequence getGoToRuinsForRevenge() {
 		var vlad = clist.get(Cnames.Player);
+		var dungeon = plist.get(Pnames.Dungeon);
 		var ruins = plist.get(Pnames.Ruins);
 		var lilith = clist.get(Cnames.Lilith);
 		var sequence = new ActionSequence();
 		//sequence.add(new HideNarration());
 		sequence.add(new Face(lilith, ruins.getFurniture("Altar")));
 		//sequence.add(new DisableEffect(vlad, Blackflame));
+		sequence.add(new Exit(vlad, dungeon.getFurniture("Door"), true));
+		sequence.add(new Enter(vlad, ruins.getFurniture("EastEnd"), true));
 		sequence.add(new Position(vlad, ruins));	
 		sequence.add(new Position(lilith, ruins));
 		return sequence;
@@ -485,13 +483,19 @@ public class ShortStory implements IStory{
 		var vlad = clist.get(Cnames.Player);
 		var ruins = plist.get(Pnames.Ruins);
 		var lilith = clist.get(Cnames.Lilith);
+		var odin = clist.get(Cnames.Odin);
 		var sword = ilist.get(Inames.Sword);
 		var sequence = new ActionSequence();
+		sequence.add(new HideDialog());
 		sequence.add(new Position(sword, ruins, "Chest"));
 		sequence.add(new Take(vlad, sword, ruins.getFurniture("Chest")));
+		sequence.add(new Draw(vlad, sword));
+		sequence.add(new Attack(vlad, lilith, true));
 		//sequence.add(new EnableIcon("SwordAttack", sword, lilith, "Attack Lilith!", true));
-		sequence.add(new Die(lilith));
 		sequence.add(new SetNarration("You have defeated Lilith! Do you want to become King of Good or King of Evil?"));
+		sequence.add(new Die(lilith));
+		sequence.add(new SetRight(vlad));
+		sequence.add(new SetLeft(odin));
 		sequence.add(new SetDialog("[AcceptGoodCrown|I want to become King of Good]"));
 		sequence.add(new SetDialog("[AcceptEvilCrown|I want to become King of Evil]"));
 		sequence.add(new ShowDialog());
@@ -502,7 +506,11 @@ public class ShortStory implements IStory{
 		var vlad = clist.get(Cnames.Player);
 		var castle = plist.get(Pnames.GreatHall);
 		var king = clist.get(Cnames.Kingarthur);
+		var ruins = plist.get(Pnames.Ruins);
 		var sequence = new ActionSequence();
+		sequence.add(new Create<Character>(king));
+		sequence.add(new SetClothing(king));
+		sequence.add(new Position(king, ruins, "altar"));
 		sequence.add(new HideDialog());
 		sequence.add(new HideNarration());
 		sequence.add(new Position(vlad, castle));
@@ -567,17 +575,26 @@ public class ShortStory implements IStory{
 		sequence.add(new Position(vlad, ruins));
 		sequence.add(new Position(lilith, ruins));
 		sequence.add(new Unpocket(vlad, greenbook));
-		sequence.add(new Face(vlad, lilith));
-		sequence.add(new Give(vlad, greenbook, lilith));
-		sequence.add(new Take(lilith, greenbook));
+		//sequence.add(new Face(vlad, lilith));
+		//sequence.add(new Give(vlad, greenbook, lilith));
+		sequence.add(new SetRight(vlad));
+		sequence.add(new SetLeft(lilith));
+		sequence.add(new SetDialog("This is the wrong book! Did you do what I asked?"));
+		sequence.add(new SetDialog("[Talk2Witch| You forgot my book?]"));		
+		//sequence.add(new SetDialog("[Talk2Witch] You forgot my Book?]"));
+		sequence.add(new ShowDialog());
+		//sequence.add(new Take(lilith, greenbook));
 		return sequence;
 	}
 	private ActionSequence getBecomeEvilKing() {
 		var ruins = plist.get(Pnames.Ruins);
+		var lilith = clist.get(Cnames.Lilith);
 		var vlad = clist.get(Cnames.Player);
 		var sequence = new ActionSequence();
-		sequence.add(new Position(vlad, ruins, "Throne"));
-		sequence.add(new SetNarration("And you lived evilily ever after as new King!"));
+		sequence.add(new HideDialog());
+		sequence.add(new Cast(lilith, vlad, "red"));
+		sequence.add(new Die(vlad));
+		//sequence.add(new SetNarration("And you lived evilily ever after as new King!"));
 		return sequence;
 	}
 	private ActionSequence getAt1stRuins() {
