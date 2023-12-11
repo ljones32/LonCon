@@ -11,7 +11,6 @@ public class Die implements IAction{
 
 	@Override
 	public boolean getShouldWait() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	public Die(Character c1) {
